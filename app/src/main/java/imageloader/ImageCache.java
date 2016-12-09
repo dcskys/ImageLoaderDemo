@@ -8,11 +8,16 @@ import android.util.LruCache;
  *
  * 图片缓存类
  *
+ *
+ * 1.0 有个问题  LruCache 内存缓存
+ * 当应用重新启动时， 原来加载的图片就会丢失  就会重新下载
+ * 需要将下载的内存存入本地  ，增加个本地缓存，，遵循开闭原则
+ *
  */
 
 public class ImageCache {
 
-    LruCache<String,Bitmap>   mImageCache ;
+    LruCache<String,Bitmap>   mImageCache ;  //内存缓存  ，
 
     public ImageCache(){
         initImageCache();
