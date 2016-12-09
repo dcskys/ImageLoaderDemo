@@ -1,7 +1,6 @@
 package imageloader;
 
 import android.graphics.Bitmap;
-import android.widget.ImageView;
 
 /**
  * Created by dc on 2016/12/9.
@@ -10,14 +9,14 @@ import android.widget.ImageView;
  *
  */
 
-public class DoubleCache {
+public class DoubleCache  implements ImageCache{
 
-    ImageCache mMemoryCache  = new ImageCache();
+    ImageCache mMemoryCache  = new MemoryCache();  //接口  实例化 一个实现接口
 
-    DiskCache mDiskCache = new DiskCache();
+    ImageCache mDiskCache = new DiskCache();
 
-
-    public Bitmap get (String url ){
+    @Override
+    public Bitmap get(String url) {
         Bitmap bitmap = mMemoryCache.get(url);
 
         if (bitmap==null){
@@ -27,14 +26,11 @@ public class DoubleCache {
         return bitmap;
     }
 
-
-    public void  put (String url , Bitmap  bitmap){
-
+    @Override
+    public void put(String url, Bitmap bitmap) {
         mDiskCache.put(url,bitmap);
         mMemoryCache.put(url,bitmap);
-
     }
-
 
 
 

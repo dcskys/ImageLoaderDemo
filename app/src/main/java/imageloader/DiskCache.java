@@ -15,28 +15,23 @@ import java.io.IOException;
  *
  */
 
-public class DiskCache {
+public class DiskCache  implements ImageCache {
 
 
     static  String cacheDir = "sdcard/cache/";
 
-
-
-    public Bitmap  get(String url){
-
+    @Override
+    public Bitmap get(String url) {
         return BitmapFactory.decodeFile(cacheDir+url);  //从文件地址中获取
-
     }
 
-
-
-    public void  put (String url ,Bitmap bmp){
-
+    @Override
+    public void put(String url, Bitmap bitmap) {
         FileOutputStream fileOutputStream = null ;
 
         try {
             fileOutputStream = new FileOutputStream(cacheDir+url);
-            bmp.compress(Bitmap.CompressFormat.PNG,100,fileOutputStream);
+            bitmap.compress(Bitmap.CompressFormat.PNG,100,fileOutputStream);
 
         } catch (FileNotFoundException e) {
 
@@ -52,13 +47,7 @@ public class DiskCache {
             }
 
         }
-
-
     }
-
-
-
-
 
 
 }
